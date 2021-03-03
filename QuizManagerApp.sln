@@ -5,6 +5,8 @@ VisualStudioVersion = 16.0.30711.63
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QuizManagerApp", "QuizManagerApp\QuizManagerApp.csproj", "{E91B93FA-FEC0-4572-A241-E46D4B7D435A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QuizManagerAppTests", "QuizManagerAppTests\QuizManagerAppTests.csproj", "{BCD54E15-FF5C-4110-9227-9A7002F401C2}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{E91B93FA-FEC0-4572-A241-E46D4B7D435A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E91B93FA-FEC0-4572-A241-E46D4B7D435A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E91B93FA-FEC0-4572-A241-E46D4B7D435A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BCD54E15-FF5C-4110-9227-9A7002F401C2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BCD54E15-FF5C-4110-9227-9A7002F401C2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BCD54E15-FF5C-4110-9227-9A7002F401C2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BCD54E15-FF5C-4110-9227-9A7002F401C2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
