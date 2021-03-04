@@ -51,9 +51,7 @@ namespace QuizManagerAppTests
 
     public class UserDetails
     {
-        public string Username { get; set; }
-        public string Password { get; set; }
-        public int PermissionsId { get; set; }
+        private readonly Person _person = new Person();
 
         public object AttemptLogIn(string username, string password)
         {

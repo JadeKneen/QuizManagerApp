@@ -1,7 +1,26 @@
 ﻿@page "/"
+@using QuizManagerApp.Data
 
-<h1>Hello, world!</h1>
+@inject IPersonService PersonService
 
-Welcome to your new app.
+@if (people == null)
+{
+    <p>loading...</p>
+}
+else
+{
+@foreach (var person in people)
+{
+    <Card>@person.Username @person.Description</Card>
+}
+}
 
-<SurveyPrompt Title="How is Blazor working for you?" />
+@code
+{
+    IEnumerable<Person> people;
+
+    protected override async Task OnInitializedAsync()
+    {
+        people = await PersonService.GetPeople();
+    }
+}
