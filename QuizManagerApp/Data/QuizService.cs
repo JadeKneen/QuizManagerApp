@@ -11,6 +11,7 @@ namespace QuizManagerApp.Data
     public interface IQuizService
     {
         Task<IEnumerable<Quiz>> GetQuizTask();
+        Task<bool> CreateQuiz(Quiz quiz);
     }
 
     public class QuizService : IQuizService
@@ -46,6 +47,32 @@ namespace QuizManagerApp.Data
 
             }
             return quizzes;
+        }
+
+        public async Task<bool> CreateQuiz(Quiz quiz)
+        {
+            using (var conn = new SqlConnection(_configuration.Value))
+            {
+                const string query = @"insert into dbo.Quiz values (@ID, @Description)";
+                var QuizID = GetQuizTask().Result.ToList().Count+1;
+
+                if (conn.State == ConnectionState.Closed)
+                    conn.Open();
+                try
+                {
+                    await conn.ExecuteAsync(query, new { QuizID, quiz.Description }, commandType: CommandType.Text);
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+                finally
+                {
+                    if (conn.State == ConnectionState.Open)
+                        conn.Close();
+                }
+            }
+            return true;
         }
     }
 

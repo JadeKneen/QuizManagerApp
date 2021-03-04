@@ -2,6 +2,16 @@
 @using QuizManagerApp.Data
 
 @inject IQuizService QuizService
+@inject NavigationManager NavigationManager
+
+<style type="text/css">
+    .hiddenTextBox {
+        border: cornflowerblue;
+        height: 20px;
+        width: auto;
+        visibility: @TextboxVisibility;
+    }
+</style>
 
 <h3>Quiz List</h3>
 
@@ -15,14 +25,24 @@ else
     {
         <Card>@quiz.Description</Card>
     }
+    <button @onclick="@AddQuiz">Click here to add another quiz</button>
+    
+
 }
 
+
 @code {
+    public string TextboxVisibility = "hidden";
     IEnumerable<Quiz> _quizzes;
 
     protected override async Task OnInitializedAsync()
     {
         _quizzes = await QuizService.GetQuizTask();
+    }
+
+    public void AddQuiz()
+    {
+        NavigationManager.NavigateTo("CreateQuiz");
     }
 
 }

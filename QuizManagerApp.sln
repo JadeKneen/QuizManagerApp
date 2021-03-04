@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30711.63
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QuizManagerApp", "QuizManagerApp\QuizManagerApp.csproj", "{E91B93FA-FEC0-4572-A241-E46D4B7D435A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "QuizManagerApp", "QuizManagerApp\QuizManagerApp.csproj", "{E91B93FA-FEC0-4572-A241-E46D4B7D435A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QuizManagerAppTests", "QuizManagerAppTests\QuizManagerAppTests.csproj", "{BCD54E15-FF5C-4110-9227-9A7002F401C2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "QuizManagerAppTests", "QuizManagerAppTests\QuizManagerAppTests.csproj", "{BCD54E15-FF5C-4110-9227-9A7002F401C2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
