@@ -1,7 +1,28 @@
 ﻿@page "/quizOptions"
+@using QuizManagerApp.Data
+
+@inject IQuizService QuizService
 
 <h3>Quiz List</h3>
 
+@if (_quizzes == null)
+{
+    <p>loading...</p>
+}
+else
+{
+    @foreach (var quiz in _quizzes)
+    {
+        <Card>@quiz.Description</Card>
+    }
+}
+
 @code {
+    IEnumerable<Quiz> _quizzes;
+
+    protected override async Task OnInitializedAsync()
+    {
+        _quizzes = await QuizService.GetQuizTask();
+    }
 
 }

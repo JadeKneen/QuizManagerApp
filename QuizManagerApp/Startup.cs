@@ -44,6 +44,7 @@ namespace QuizManagerApp
             services.AddScoped<AuthenticationStateProvider, RevalidatingIdentityAuthenticationStateProvider<IdentityUser>>();
             services.AddSingleton<WeatherForecastService>();
             services.AddScoped<IPersonService, PersonService>();
+            services.AddScoped<IQuizService, QuizService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
