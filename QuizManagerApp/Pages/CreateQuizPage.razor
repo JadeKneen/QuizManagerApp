@@ -1,0 +1,186 @@
+﻿@page "/createQuiz"
+@using QuizManagerApp.Data
+@using System.Security.Cryptography
+
+@inject IQuizService QuizService
+@inject NavigationManager NavigationManager
+
+<h3>Create Quiz</h3>
+
+<label>Add a quiz</label>
+<input type="text" placeholder="Add quiz description here" @bind="Description" />
+<Button @onclick="@CreateQuiz">Create Quiz</Button>
+
+
+<br />
+<h4>@Description</h4>
+
+<div id="questionOne">
+    <label>
+        Type your question here:
+        <input type="text" @bind="@QuestionOne" />
+    </label>
+    <label>
+        Type your answers here:
+        <input type="text" class="alert-primary" placeholder="required - correct answer" @bind="@QuestionOneCorrectAnswer" />
+        <input type="text" placeholder="required" @bind="@QuestionOneFirstIncorrectAns" />
+        <input type="text" placeholder="optional" @bind="@QuestionOneSecondIncorrectAns" />
+        <input type="text" placeholder="optional" @bind="@QuestionOneThirdIncorrectAns" />
+        <input type="text" placeholder="optional" @bind="@QuestionOneFourthIncorrectAns" />
+    </label>
+</div>
+<div id="questionTwo">
+    <label>
+        Type your question here:
+        <input type="text" @bind="@QuestionTwo" />
+    </label>
+    <label>
+        Type your answers here:
+        <input type="text" class="alert-primary" placeholder="required - correct answer" @bind="@QuestionTwoCorrectAnswer" />
+        <input type="text" placeholder="required" @bind="@QuestionTwoFirstIncorrectAns" />
+        <input type="text" placeholder="optional" @bind="@QuestionTwoSecondIncorrectAns" />
+        <input type="text" placeholder="optional" @bind="@QuestionTwoThirdIncorrectAns" />
+        <input type="text" placeholder="optional" @bind="@QuestionTwoFourthIncorrectAns" />
+    </label>
+</div>
+<div id="questionThree">
+    <label>
+        Type your question here:
+        <input type="text" @bind="@QuestionThree" />
+    </label>
+    <label>
+        Type your answers here:
+        <input type="text" class="alert-primary" placeholder="required - correct answer" @bind="@QuestionThreeCorrectAnswer" />
+        <input type="text" placeholder="required" @bind="@QuestionThreeFirstIncorrectAns" />
+        <input type="text" placeholder="optional" @bind="@QuestionThreeSecondIncorrectAns" />
+        <input type="text" placeholder="optional" @bind="@QuestionThreeThirdIncorrectAns" />
+        <input type="text" placeholder="optional" @bind="@QuestionThreeFourthIncorrectAns" />
+    </label>
+</div>
+<div id="questionFour">
+    <label>
+        Type your question here:
+        <input type="text" @bind="@QuestionFour" />
+    </label>
+    <label>
+        Type your answers here:
+        <input type="text" class="alert-primary" placeholder="required - correct answer" @bind="@QuestionFourCorrectAnswer" />
+        <input type="text" placeholder="required" @bind="@QuestionFourFirstIncorrectAns" />
+        <input type="text" placeholder="optional" @bind="@QuestionFourSecondIncorrectAns" />
+        <input type="text" placeholder="optional" @bind="@QuestionFourThirdIncorrectAns" />
+        <input type="text" placeholder="optional" @bind="@QuestionFourFourthIncorrectAns" />
+    </label>
+</div>
+<div id="questionFive">
+    <label>
+        Type your question here:
+        <input type="text" @bind="@QuestionFive" />
+    </label>
+    <label>
+        Type your answers here:
+        <input type="text" class="alert-primary" placeholder="required - correct answer" @bind="@QuestionFiveCorrectAnswer" />
+        <input type="text" placeholder="required" @bind="@QuestionFiveFirstIncorrectAns" />
+        <input type="text" placeholder="optional" @bind="@QuestionFiveSecondIncorrectAns" />
+        <input type="text" placeholder="optional" @bind="@QuestionFiveThirdIncorrectAns" />
+        <input type="text" placeholder="optional" @bind="@QuestionFiveFourthIncorrectAns" />
+    </label>
+</div>
+<Button>Finish</Button>
+
+<Card>
+    <h3>@QuestionOne</h3>
+    <li>
+        <ul>@QuestionOneCorrectAnswer</ul>
+        <ul>@QuestionOneFirstIncorrectAns</ul>
+        <ul>@QuestionOneSecondIncorrectAns</ul>
+        <ul>@QuestionOneThirdIncorrectAns</ul>
+        <ul>@QuestionOneFourthIncorrectAns</ul>
+    </li>
+</Card>
+
+
+
+@code {
+
+    public string Description { get; set; }
+
+    public string QuestionOne { get; set; }
+
+    public string QuestionOneCorrectAnswer { get; set; }
+
+    public string QuestionOneFirstIncorrectAns { get; set; }
+
+    public string QuestionOneSecondIncorrectAns { get; set; }
+
+    public string? QuestionOneThirdIncorrectAns { get; set; }
+
+    public string? QuestionOneFourthIncorrectAns { get; set; }
+
+
+    public string QuestionTwo { get; set; }
+
+    public string QuestionTwoCorrectAnswer { get; set; }
+
+    public string QuestionTwoFirstIncorrectAns { get; set; }
+
+    public string QuestionTwoSecondIncorrectAns { get; set; }
+
+    public string? QuestionTwoThirdIncorrectAns { get; set; }
+
+    public string? QuestionTwoFourthIncorrectAns { get; set; }
+
+
+    public string QuestionThree { get; set; }
+
+    public string QuestionThreeCorrectAnswer { get; set; }
+
+    public string QuestionThreeFirstIncorrectAns { get; set; }
+
+    public string QuestionThreeSecondIncorrectAns { get; set; }
+
+    public string? QuestionThreeThirdIncorrectAns { get; set; }
+
+
+    public string? QuestionThreeFourthIncorrectAns { get; set; }
+
+    public string QuestionFour { get; set; }
+
+    public string QuestionFourCorrectAnswer { get; set; }
+
+    public string QuestionFourFirstIncorrectAns { get; set; }
+
+    public string QuestionFourSecondIncorrectAns { get; set; }
+
+    public string? QuestionFourThirdIncorrectAns { get; set; }
+
+    public string? QuestionFourFourthIncorrectAns { get; set; }
+
+    public string QuestionFive { get; set; }
+
+    public string QuestionFiveCorrectAnswer { get; set; }
+
+    public string QuestionFiveFirstIncorrectAns { get; set; }
+
+    public string QuestionFiveSecondIncorrectAns { get; set; }
+
+    public string? QuestionFiveThirdIncorrectAns { get; set; }
+
+    public string? QuestionFiveFourthIncorrectAns { get; set; }
+
+    Quiz quiz = new Quiz();
+    IEnumerable<Quiz> quizzes;
+
+    protected override async Task OnInitializedAsync()
+    {
+        quizzes = await QuizService.GetQuizTask();
+
+    }
+
+    protected async Task CreateQuiz()
+    {
+        quiz.Description = Description;
+        quiz.QuizId = quizzes.ToList().Count + 1;
+        await QuizService.CreateQuiz(quiz);
+        NavigationManager.NavigateTo("/quizOptions");
+    }
+}

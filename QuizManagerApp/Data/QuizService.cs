@@ -28,23 +28,9 @@ namespace QuizManagerApp.Data
             IEnumerable<Quiz> quizzes;
             using (var conn = new SqlConnection(_configuration.Value))
             {
-                if (conn.State == ConnectionState.Closed)
-                    conn.Open();
-                try
-                {
-                    quizzes = await conn.QueryAsync<Quiz>("SELECT * FROM dbo.Quiz");
-
-                }
-                catch (Exception ex)
-                {
-                    throw ex;
-                }
-                finally
-                {
-                    if (conn.State == ConnectionState.Open)
-                        conn.Close();
-                }
-
+                conn.Open();
+                quizzes = await conn.QueryAsync<Quiz>("SELECT * FROM dbo.Quiz");
+                conn.Close();
             }
             return quizzes;
         }
@@ -53,24 +39,9 @@ namespace QuizManagerApp.Data
         {
             using (var conn = new SqlConnection(_configuration.Value))
             {
-                const string query = @"insert into dbo.Quiz values (@ID, @Description)";
-                var QuizID = GetQuizTask().Result.ToList().Count+1;
-
-                if (conn.State == ConnectionState.Closed)
-                    conn.Open();
-                try
-                {
-                    await conn.ExecuteAsync(query, new { QuizID, quiz.Description }, commandType: CommandType.Text);
-                }
-                catch (Exception ex)
-                {
-                    throw ex;
-                }
-                finally
-                {
-                    if (conn.State == ConnectionState.Open)
-                        conn.Close();
-                }
+                conn.Open();
+                await conn.ExecuteAsync("spAddQuiz", new { quiz.QuizId, quiz.Description }, commandType: CommandType.StoredProcedure);
+                conn.Close();
             }
             return true;
         }
