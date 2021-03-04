@@ -1,0 +1,30 @@
+﻿@page "/QuizCategoryView/{QuizId:int}"
+@using QuizManagerApp.Data
+@inject IQuizService QuizService
+
+
+@if (_quizModel == null)
+{
+    <p>loading...</p>
+}
+else
+{
+    <br />
+    foreach (var question in _quizModel)
+    {
+        <Card>@question.Description</Card>
+    }
+}
+
+
+@code {
+    [Parameter]
+    public int QuizId { get; set; }
+
+    IEnumerable<QuizModel> _quizModel;
+
+    protected override async Task OnInitializedAsync()
+    {
+        _quizModel = await QuizService.GetQuestionsForSingleQuiz(QuizId);
+    }
+}

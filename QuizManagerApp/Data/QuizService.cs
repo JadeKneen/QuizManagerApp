@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
+using System.Reflection.Metadata.Ecma335;
 using System.Threading.Tasks;
 using Dapper;
 using Microsoft.Data.SqlClient;
@@ -12,6 +13,7 @@ namespace QuizManagerApp.Data
     {
         Task<IEnumerable<Quiz>> GetQuizTask();
         Task<bool> CreateQuiz(Quiz quiz);
+        Task<IEnumerable<QuizModel>> GetQuestionsForSingleQuiz(int id);
     }
 
     public class QuizService : IQuizService
@@ -45,6 +47,34 @@ namespace QuizManagerApp.Data
             }
             return true;
         }
+
+        public async Task<IEnumerable<QuizModel>> GetQuestionsForSingleQuiz(int QuizId)
+        {
+            IEnumerable<QuizModel> quizModel;
+
+            using (var conn = new SqlConnection(_configuration.Value))
+            {
+                conn.Open();
+                quizModel = await conn.QueryAsync<QuizModel>("Select * from dbo.Questions where QuizId = @QuizId", new {QuizId}, commandType:CommandType.Text);
+                conn.Close();
+            }
+
+            return quizModel;
+        }
+    }
+
+    public class QuizModel : Quiz
+    {
+        public int QuizId { get; set; }
+        public string QuestionDescription { get; set; }
+        public string QuizDescription { get; set; }
+    }
+
+    public class Question
+    {
+        public int QuestionId { get; set; }
+        public string Description { get; set; }
+        public int QuizId { get; set; }
     }
 
     public class Quiz

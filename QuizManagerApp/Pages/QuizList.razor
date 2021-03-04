@@ -4,15 +4,6 @@
 @inject IQuizService QuizService
 @inject NavigationManager NavigationManager
 
-<style type="text/css">
-    .hiddenTextBox {
-        border: cornflowerblue;
-        height: 20px;
-        width: auto;
-        visibility: @TextboxVisibility;
-    }
-</style>
-
 <h3>Quiz List</h3>
 
 @if (_quizzes == null)
@@ -21,9 +12,29 @@
 }
 else
 {
+    <table class='table'>  
+        <thead>  
+        <tr>  
+            <th>Quiz</th>
+        </tr>  
+        </thead>  
+        <tbody>  
+        @foreach (var quiz in _quizzes)  
+        {  
+            <tr>  
+                <td>@quiz.Description</td>
+                <td>  
+                    <a href='/QuizCategoryView/@quiz.QuizId'>View</a>  
+                    @*<a href='/DeleteQuiz/@quiz.QuizId'>Delete</a>*@  
+                </td>  
+            </tr>  
+  
+        }  
+        </tbody>  
+    </table>  
     @foreach (var quiz in _quizzes)
     {
-        <Card>@quiz.Description</Card>
+        <Card>@quiz.Description</Card><a href="/QuizView/@quiz.QuizId">View Quiz</a>
     }
     <button @onclick="@AddQuiz">Click here to add another quiz</button>
     
@@ -32,7 +43,6 @@ else
 
 
 @code {
-    public string TextboxVisibility = "hidden";
     IEnumerable<Quiz> _quizzes;
 
     protected override async Task OnInitializedAsync()
