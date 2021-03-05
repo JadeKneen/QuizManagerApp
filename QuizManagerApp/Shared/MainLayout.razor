@@ -4,9 +4,6 @@
     <Header Style="position: fixed; z-index: 1; width: 100%; ">
         <div class="logo" />
         <Menu Theme="MenuTheme.Dark" Mode="MenuMode.Horizontal" DefaultSelectedKeys=@(new[]{"2"})>
-            <MenuItem Key="1" >nav 1</MenuItem>
-            <MenuItem Key="2">nav 2</MenuItem>
-            <MenuItem Key="3">nav 3</MenuItem>
             <div class="float-right">
                 <LoginDisplay />
             </div>
@@ -14,16 +11,10 @@
         
     </Header>
     <Content Class="site-layout" Style="padding:0 50px; margin-top: 64px; ">
-        <Breadcrumb Style=" margin: 16px 0;">
-            <BreadcrumbItem>Home</BreadcrumbItem>
-            <BreadcrumbItem>List</BreadcrumbItem>
-            <BreadcrumbItem>App</BreadcrumbItem>
-        </Breadcrumb>
         <div class="site-layout-background" style="padding: 24px; min-height: 500px ">
             @Body
         </div>
     </Content>
-    <Footer Style="text-align: center;">Ant Design ©2018 Created by Ant UED</Footer>
 </Layout>
 
 <style>
