@@ -2,7 +2,7 @@
 @using QuizManagerApp.Data
 @inject IQuizService QuizService
 
-
+<h3>Question List</h3>
 @if (_quizModel == null)
 {
     <p>loading...</p>
@@ -12,7 +12,10 @@ else
     <br />
     foreach (var question in _quizModel)
     {
-        <Card>@question.Description</Card>
+        <Card>
+            <h4>@question.Description</h4>
+            <a href="/QuestionAnswerView/@question.QuestionId">View answers</a>
+        </Card>
     }
 }
 

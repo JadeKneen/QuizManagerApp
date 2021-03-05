@@ -1,0 +1,31 @@
+﻿@page "/QuestionAnswerView/{QuestionId:int}"
+@using QuizManagerApp.Data
+@inject IQuizService QuizService
+
+<h3>Answers</h3>
+
+@if (_answers == null)
+{
+    <p>loading...</p>
+}
+else
+{
+    <br />
+    foreach (var answer in _answers)
+    {
+        <Card>@answer.AnswerDesc</Card>
+    }
+}
+
+
+@code {
+    [Parameter]
+    public int QuestionId { get; set; }
+
+    IEnumerable<Answer> _answers;
+
+    protected override async Task OnInitializedAsync()
+    {
+        _answers = await QuizService.GetAnswersForSingleQuestion(QuestionId);
+    }
+}

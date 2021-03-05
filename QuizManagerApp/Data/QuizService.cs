@@ -14,6 +14,8 @@ namespace QuizManagerApp.Data
         Task<IEnumerable<Quiz>> GetQuizTask();
         Task<bool> CreateQuiz(Quiz quiz);
         Task<IEnumerable<QuizModel>> GetQuestionsForSingleQuiz(int id);
+        Task<IEnumerable<Answer>> GetAnswersForSingleQuestion(int QuestionId);
+
     }
 
     public class QuizService : IQuizService
@@ -61,13 +63,33 @@ namespace QuizManagerApp.Data
 
             return quizModel;
         }
+
+        public async Task<IEnumerable<Answer>> GetAnswersForSingleQuestion(int QuestionId)
+        {
+            IEnumerable<Answer> answers;
+
+            using (var conn = new SqlConnection(_configuration.Value))
+            {
+                conn.Open();
+                answers = await conn.QueryAsync<Answer>("Select * from dbo.AnswersTable where QuestionId = @QuestionId", new { QuestionId }, commandType: CommandType.Text);
+                conn.Close();
+            }
+
+            return answers;
+        }
+    }
+
+    public class Answer : Question
+    {
+        public int AnswerId { get; set; }
+        public string AnswerDesc { get; set; }
     }
 
     public class QuizModel : Quiz
     {
-        public int QuizId { get; set; }
         public string QuestionDescription { get; set; }
         public string QuizDescription { get; set; }
+        public int QuestionId { get; set; }
     }
 
     public class Question
