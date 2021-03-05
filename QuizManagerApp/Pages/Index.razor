@@ -1,27 +1,3 @@
 ﻿@page "/"
-@using QuizManagerApp.Data
 
-@inject IPersonService PersonService
-
-@if (people == null)
-{
-    <p>loading...</p>
-}
-
-else
-{
-    @foreach (var person in people)
-    {
-        <Card>@person.Username @person.Description</Card>
-    }
-}
-
-@code
-{
-    IEnumerable<Person> people;
-
-    protected override async Task OnInitializedAsync()
-    {
-        people = await PersonService.GetPeople();
-    }
-}
+<QuizList/>
