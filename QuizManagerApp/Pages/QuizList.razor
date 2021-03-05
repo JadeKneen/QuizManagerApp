@@ -4,42 +4,57 @@
 @inject IQuizService QuizService
 @inject NavigationManager NavigationManager
 
-<h3>Quiz List</h3>
-
 @if (_quizzes == null)
-{
-    <p>loading...</p>
-}
-else
-{
-    <table class='table'>  
-        <thead>  
-        <tr>  
-            <th>Quiz</th>
-        </tr>  
-        </thead>  
-        <tbody>  
-        @foreach (var quiz in _quizzes)  
-        {  
-            <tr>  
-                <td>@quiz.Description</td>
-                <td>  
-                    <a href='/QuizCategoryView/@quiz.QuizId'>View</a>  
-                    @*<a href='/DeleteQuiz/@quiz.QuizId'>Delete</a>*@  
-                </td>  
-            </tr>  
-  
-        }  
-        </tbody>  
-    </table>  
-    @foreach (var quiz in _quizzes)
     {
-        <Card>@quiz.Description</Card><a href="/QuizView/@quiz.QuizId">View Quiz</a>
+        <p>loading...</p>
     }
-    <button @onclick="@AddQuiz">Click here to add another quiz</button>
-    
+    else
+    {
+        <AuthorizeView>
+            <Authorized>
+                <table class='table'>
+                    <thead>
+                    <tr>
+                        <th>Quiz</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    @foreach (var quiz in _quizzes)
+                    {
+                        <tr>
+                            <td>@quiz.Description</td>
+                            <td>
+                                <a href='/QuizCategoryView/@quiz.QuizId'>View</a>
+                                <a href='#'>Delete</a>
+                            </td>
+                        </tr>
 
-}
+
+
+                    }
+                    </tbody>
+                </table>
+                <button @onclick="@AddQuiz">Click here to add another quiz</button>
+            </Authorized>
+            <NotAuthorized>
+                <table class='table'>
+                    <thead>
+                        <tr>
+                            <th>Quiz</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var quiz in _quizzes)
+                        {
+                            <tr>
+                                <td>@quiz.Description</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </NotAuthorized>
+</AuthorizeView>
+    }
 
 
 @code {
