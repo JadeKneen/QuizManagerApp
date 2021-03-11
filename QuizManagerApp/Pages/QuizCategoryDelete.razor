@@ -1,0 +1,28 @@
+﻿@page "/QuizCategoryDelete/{QuizId:int}"
+@using QuizManagerApp.Data
+@inject IQuizService QuizService
+@inject NavigationManager NavigationManager
+
+<h3>Please confirm that you want to delete the @_quizModel.Description Quiz? </h3>
+<Button @onclick="@ConfirmDelete">Confirm</Button>
+
+
+
+@code {
+    [Parameter]
+    public int QuizId { get; set; }
+
+    QuizModel _quizModel = new QuizModel();
+
+    protected override async Task OnInitializedAsync()
+    {
+        _quizModel = await QuizService.GetQuizDetails(QuizId);
+    }
+
+    private async void ConfirmDelete()
+    {
+        await QuizService.DeleteQuiz(QuizId);
+        NavigationManager.NavigateTo("/");
+    }
+
+}

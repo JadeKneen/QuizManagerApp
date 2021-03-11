@@ -107,5 +107,18 @@ namespace QuizManagerApp.Data
 
             return answers;
         }
+
+        public async Task<bool> DeleteQuiz(int QuizId)
+        {
+            using (var conn = new SqlConnection(_configuration.Value))
+            {
+                conn.Open();
+                await conn.ExecuteAsync("DELETE from dbo.Quiz WHERE QuizId=@QuizId", new {QuizId},
+                    commandType: CommandType.Text);
+                conn.Close();
+            }
+
+            return true;
+        }
     }
 }

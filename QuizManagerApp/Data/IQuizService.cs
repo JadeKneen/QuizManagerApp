@@ -12,6 +12,6 @@ namespace QuizManagerApp.Data
         Task<IEnumerable<QuizModel>> GetQuestionsForSingleQuiz(int id);
         Task<bool> CreateQuestionForSelectedQuiz(Question question);
         Task<IEnumerable<Answer>> GetAnswersForSingleQuestion(int QuestionId);
-
+        Task<bool> DeleteQuiz(int QuizId);
     }
 }
