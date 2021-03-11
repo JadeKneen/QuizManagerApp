@@ -37,7 +37,7 @@ namespace QuizManagerApp.Data
             using (var conn = new SqlConnection(_configuration.Value))
             {
                 conn.Open();
-                _quizModel = conn.QueryFirst<QuizModel>("spDeleteQuizWithAnswers", new {QuizId}, commandType: CommandType.StoredProcedure);
+                _quizModel = conn.QueryFirst<QuizModel>("SELECT * FROM dbo.Quiz WHERE QuizId = @QuizId", new {QuizId}, commandType: CommandType.Text);
                 conn.Close();
             }
 
@@ -115,6 +115,32 @@ namespace QuizManagerApp.Data
                 conn.Open();
                 await conn.ExecuteAsync("DELETE from dbo.Quiz WHERE QuizId=@QuizId", new {QuizId},
                     commandType: CommandType.Text);
+                conn.Close();
+            }
+            //spDeleteQuizWithAnswers
+            return true;
+        }
+
+        public async Task<bool> DeleteQuizWithAnswers(int QuizId)
+        {
+            using (var conn = new SqlConnection(_configuration.Value))
+            {
+                conn.Open();
+                await conn.ExecuteAsync("spDeleteQuizWithAnswers", new { QuizId },
+                    commandType: CommandType.StoredProcedure);
+                conn.Close();
+            }
+
+            return true;
+        }
+
+        public async Task<bool> DeleteQuizWithQuestionsOnly(int QuizId)
+        {
+            using (var conn = new SqlConnection(_configuration.Value))
+            {
+                conn.Open();
+                await conn.ExecuteAsync("spDeleteQuizWithQuestionsOnly", new { QuizId },
+                    commandType: CommandType.StoredProcedure);
                 conn.Close();
             }
 
