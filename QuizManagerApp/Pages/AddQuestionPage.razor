@@ -1,0 +1,36 @@
+﻿@page "/AddQuestions/{QuizId:int}"
+@using QuizManagerApp.Data
+@inject IQuizService QuizService
+@inject NavigationManager NavigationManager
+
+<h3>@(((Quiz) _quizModel).Description)</h3>
+
+<label>Add a Question</label>
+<input type="text" placeholder="Add question here" @bind="Description"/>
+<Button @onclick="@AddAQuestion">Create Quiz</Button>
+
+
+@code {
+    [Parameter]
+    public int QuizId { get; set; }
+    public string Description { get; set; }
+
+    Question _question = new Question();
+    QuizModel _quizModel = new QuizModel();
+
+    protected override async Task OnInitializedAsync()
+    {
+        _quizModel = await QuizService.GetQuizDetails(QuizId);
+
+    }
+
+    protected async Task AddAQuestion()
+    {
+        _question.Description = Description;
+        await QuizService.CreateQuestionForSelectedQuiz(_question);
+        NavigationManager.NavigateTo("/");
+    }
+
+
+
+}

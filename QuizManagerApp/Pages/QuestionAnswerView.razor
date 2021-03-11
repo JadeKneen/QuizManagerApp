@@ -2,11 +2,28 @@
 @using QuizManagerApp.Data
 @inject IQuizService QuizService
 
-<h3>Answers</h3>
+<h3>@(((Quiz) _quizModel).Description)</h3>
 
 @if (_answers == null)
 {
     <p>loading...</p>
+}
+else if (_answers.ToList().Count == 0)
+{
+    <p>Oh no, this question has no answers. Add some here:</p>
+    <br />
+    <Button>Add Answers</Button>
+
+}
+else if (_answers.ToList().Count < 5)
+{
+    <br />
+    foreach (var answer in _answers)
+    {
+        <Card>@answer.AnswerDesc</Card>
+    }
+    <br />
+    <Button>Add Answers</Button>
 }
 else
 {
@@ -18,14 +35,22 @@ else
 }
 
 
+
 @code {
     [Parameter]
     public int QuestionId { get; set; }
 
     IEnumerable<Answer> _answers;
+    QuizModel _quizModel = new QuizModel();
 
     protected override async Task OnInitializedAsync()
     {
         _answers = await QuizService.GetAnswersForSingleQuestion(QuestionId);
+        await GetQuizName();
+    }
+
+    async Task GetQuizName()
+    {
+        _quizModel = await QuizService.FindQuestion(QuestionId);
     }
 }

@@ -1,11 +1,18 @@
 ﻿@page "/QuizCategoryView/{QuizId:int}"
 @using QuizManagerApp.Data
 @inject IQuizService QuizService
+@inject NavigationManager NavigationManager
 
 <h3>Question List</h3>
 @if (_quizModel == null)
 {
     <p>loading...</p>
+}
+else if (_quizModel.ToList().Count == 0)
+{
+    <p>Oh no, it looks like this quiz does not have any questions yet!</p>
+    <p>Add some questions here:</p>
+    
 }
 else
 {
@@ -13,12 +20,13 @@ else
     foreach (var question in _quizModel)
     {
         <Card>
-            <h4>@question.Description</h4>
+            <h4>@(((Quiz) question).Description)</h4>
             <a href="/QuestionAnswerView/@question.QuestionId">View answers</a>
         </Card>
     }
 }
-
+<br />
+<Button><a href="/AddQuestions/@QuizId">Add Questions</a></Button>
 
 @code {
     [Parameter]
@@ -30,4 +38,5 @@ else
     {
         _quizModel = await QuizService.GetQuestionsForSingleQuiz(QuizId);
     }
+
 }

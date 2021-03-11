@@ -42,7 +42,6 @@ namespace QuizManagerApp
             services.AddServerSideBlazor();
             services.AddAntDesign();
             services.AddScoped<AuthenticationStateProvider, RevalidatingIdentityAuthenticationStateProvider<IdentityUser>>();
-            services.AddSingleton<WeatherForecastService>();
             services.AddScoped<IPersonService, PersonService>();
             services.AddScoped<IQuizService, QuizService>();
         }
