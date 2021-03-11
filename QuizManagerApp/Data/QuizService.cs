@@ -37,7 +37,7 @@ namespace QuizManagerApp.Data
             using (var conn = new SqlConnection(_configuration.Value))
             {
                 conn.Open();
-                _quizModel = conn.QueryFirst<QuizModel>("SELECT * FROM dbo.Quiz WHERE QuizId = @QuizId", new {QuizId}, commandType: CommandType.Text);
+                _quizModel = conn.QueryFirst<QuizModel>("spDeleteQuizWithAnswers", new {QuizId}, commandType: CommandType.StoredProcedure);
                 conn.Close();
             }
 

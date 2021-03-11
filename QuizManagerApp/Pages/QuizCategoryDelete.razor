@@ -19,6 +19,8 @@
         _quizModel = await QuizService.GetQuizDetails(QuizId);
     }
 
+    //runs into foreign key issues if quiz has questions linked
+
     private async void ConfirmDelete()
     {
         await QuizService.DeleteQuiz(QuizId);
